@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Link } from "@remix-run/react";
-import { CupIcon } from "../components/icons/cup";
-import { baseColors } from "../lib/constants";
 
 export default function Header() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -13,8 +11,8 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 text-black flex justify-between items-center px-8 py-4 bg-background-primary z-50">
-        <div className="flex justify-center font-poppins font-semibold text-2xl text-matcha-100 items-center gap-2">
-          JI'MOSHI
+        <div className="flex justify-center font-bolder text-4xl text-matcha-100 items-center gap-2 font-logo">
+          JI'HOSHI
         </div>
 
         <div className="hidden md:flex justify-start gap-8 font-poppins text-base font-light text-matcha-700 leading-3">

@@ -6,3 +6,38 @@ html,
 body {
   @apply bg-background-primary;
 }
+
+@font-face {
+  font-family: 'Kalam-Regular';
+  src: url('/fonts/Kalam-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Macondo-Regular';
+  src: url('/fonts/Macondo-Regular.ttf') format('truetype');
+  font-weight: bolder;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MochiyPopOne-Regular';
+  src: url('/fonts/MochiyPopOne-Regular.ttf') format('truetype');
+  font-weight: bolder;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-VariableFont_wght';
+  src: url('/fonts/Karla-VariableFont_wght.ttf') format('truetype');
+  font-weight: medium;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'QwitcherGrypen-Regular';
+  src: url('/fonts/QwitcherGrypen-Regular.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}

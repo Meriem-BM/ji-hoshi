@@ -3,11 +3,11 @@ import React from "react";
 export default function Hero() {
   return (
     <section className="py-32 text-center text-white h-[100vh] flex flex-col justify-center gap-32">
-      <h2 className="text-5xl font-bold text-matcha-100 uppercase">
+      <h2 className="text-5xl font-bold text-matcha-100 uppercase font-title">
         Discover our products
       </h2>
-      <div className="flex justify-evenly">zab
-        <div className="flex flex-col items-center gap-4">x
+      <div className="flex justify-evenly">
+        <div className="flex flex-col items-center gap-4">
           <div className="relativ flex h-80 items-end mb-6">
             <img src="/assets/images/matcha-pack.png" alt="hero" />
           </div>

@@ -5,9 +5,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: [
-          '"Red Hat Text", sans-serif',
-        ],
+        sans: ["Karla-VariableFont_wght"],
+        logo: ["Macondo-Regular"],
+        title: ["MochiyPopOne-Regular"],
+        price: ["Kalam-Regular"],
+        signature: ["QwitcherGrypen-Regular"],
         poppins: [
           '"Poppins", sans-serif',
         ],
@@ -19,12 +21,12 @@ export default {
       colors: {
         matcha: {
           50: "#F5FFF5", // Lightest green for background
-          100: "#527427", // Light green
+          100: "#527427", // Light green (titles)
           200: "#E4ECA4", // Light green
           300: "#a3c293", // Matcha green
           400: "#B2C9AB", // Matcha green
           700: "#485F3C", // Dark green
-          footer: "#E5F0E0", // Footer green
+          footer: "#f6fbe2", // Footer green
         },
         coffee: {
           900: "#3f291f", // Coffee brown
@@ -32,7 +34,7 @@ export default {
           600: "#795548",
         },
         background: {
-          primary: "#FBF4E2",
+          primary: "#fdfbf3",
           secondary: "#F7F7F7",
         },
       },
