@@ -1,0 +1,31 @@
+.wave {
+    position: relative;
+    height: 150px;
+    width: 100%;
+    background: #E5F0E0;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  
+  .wave:before {
+    content: "";
+    position: absolute;
+    border-radius: 100% 50%;
+    width: 50%;
+    background-color: #FBF4E2;
+    right: -2%;
+    top: 66px;
+  }
+  
+  .wave:after {
+    content: "";
+    position: absolute;
+    border-radius: 100% 50%;
+    width: 50%;
+    height: 150px;
+    background-color: #E5F0E0;
+    left: -2%;
+    top: 104px;
+    overflow: visible;
+  }
+  
