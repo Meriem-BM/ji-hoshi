@@ -5,16 +5,19 @@ import { RightArrowIcon } from "./icons/RightArrow";
 export default function ProductList() {
   const products: IProduct[] = [
     {
+      id: 1,
       img: "matcha.jpg",
       title: "Premium Matcha",
       description: "Rich, smooth, and vibrant matcha powder from Japan.",
     },
     {
+      id: 2,
       img: "coffee.jpg",
       title: "Single-Origin Coffee Beans",
       description: "Specialty coffee beans, roasted to perfection.",
     },
     {
+      id: 3,
       img: "tools.jpg",
       title: "Barista Tools",
       description: "Tools for making your perfect matcha or coffee drink.",
