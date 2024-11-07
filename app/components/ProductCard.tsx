@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { IProduct } from "~/types";
-import { StarIcon } from "./icons/Star";
-import { baseColors } from "~/lib/constants";
 import { Link } from "@remix-run/react";
+import { IProduct } from "~/types";
+import { StarIcon } from "./icons";
+import { baseColors } from "~/lib/constants";
 
 const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
   return (

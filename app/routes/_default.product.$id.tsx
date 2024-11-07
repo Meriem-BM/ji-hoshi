@@ -15,5 +15,7 @@ export const loader = async ({
 export default function Product() {
   const { id } = useParams();
 
+  console.log(id);
+
   return <ProductDetails />;
 }

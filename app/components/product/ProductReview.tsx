@@ -98,7 +98,7 @@ export const ProductReview = () => {
                 <div className="flex items-center gap-3">
                   <img
                     src={feedback.image}
-                    alt={`${feedback.name} image`}
+                    alt={feedback.name}
                     className="w-8 h-8 rounded-full object-cover"
                   />
                   <div className="flex items-center gap-1">

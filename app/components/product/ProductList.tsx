@@ -91,7 +91,7 @@ const ProductList = () => {
               <div className="w-full aspect-square relative">
                 <img
                   src={product.image}
-                  alt={`${product.name} image`}
+                  alt={product.name}
                   className="w-full h-full rounded-xl object-cover"
                 />
                 {product.discount && (
