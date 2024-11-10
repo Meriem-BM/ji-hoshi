@@ -5,8 +5,10 @@ import SideBar from "~/components/admin-dashboard/Sidebar";
 export default function Layout() {
   return (
     <main className="flex">
-        <SideBar />
+      <SideBar />
+      <div className="w-full p-8">
         <Outlet />
+      </div>
     </main>
   );
 }

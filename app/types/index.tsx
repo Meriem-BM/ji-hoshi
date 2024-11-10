@@ -16,3 +16,44 @@ export interface IFeedback {
   image: string;
   feedback: string;
 }
+
+// Define the Category type
+export interface Category {
+  id: number;
+  name: string;
+  status: "Active" | "Inactive";
+}
+
+// Define the props for NewCategoryForm
+export interface NewCategoryFormProps {
+  onSubmit: (data: Omit<Category, "id">) => void;
+  onClose: () => void;
+}
+
+export enum OrderStatus {
+  Pending = "Pending",
+  Processing = "Processing",
+  Completed = "Completed",
+  Cancelled = "Cancelled",
+}
+
+export interface Order {
+  id: number;
+  status: OrderStatus;
+  total: number;
+  customer: string;
+  items: {
+    productName: string;
+    quantity: number;
+    price: number;
+  }[];
+}
+
+// types.ts
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  verified: boolean;
+}
+
