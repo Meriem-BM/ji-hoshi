@@ -21,7 +21,7 @@ export interface IFeedback {
 export interface Category {
   id: number;
   name: string;
-  status: "Active" | "Inactive";
+  status: "active" | "inactive";
 }
 
 // Define the props for NewCategoryForm

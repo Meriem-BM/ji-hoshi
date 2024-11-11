@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-const Input: FC = () => {
+export const Input: FC = () => {
   return (
     <input
       type="text"
@@ -9,5 +9,3 @@ const Input: FC = () => {
     />
   );
 };
-
-export default Input;

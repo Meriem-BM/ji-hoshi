@@ -1,25 +1,35 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import NewCategoryForm from "~/components/admin-dashboard/categories/NewCategoryModal";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableDataCell,
+  TableHeadCell,
+  SearchBar,
+  Dropdown,
+} from "~/components/ui-components";
 import { Category } from "~/types";
 
 const CategoriesView: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([
-    { id: 1, name: "Electronics", status: "Active" },
-    { id: 2, name: "Books", status: "Inactive" },
+    { id: 1, name: "Electronics", status: "active" },
+    { id: 2, name: "Books", status: "inactive" },
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<
-    "All" | "Active" | "Inactive"
-  >("All");
+    "all" | "active" | "inactive"
+  >("all");
 
   const filteredCategories = categories.filter((category) => {
     const matchesSearch = category.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
     const matchesStatus =
-      statusFilter === "All" || category.status === statusFilter;
+      statusFilter === "all" || category.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
@@ -36,69 +46,65 @@ const CategoriesView: React.FC = () => {
       <h1 className="text-2xl font-semibold mb-4">Categories</h1>
 
       {/* Search, Filter, and Add Category Controls */}
-      <div className="flex gap-4 mb-4">
-        <input
-          type="text"
-          placeholder="Search by category name"
-          className="p-2 border rounded w-full"
+      <div className="flex justify-between gap-4 mb-4">
+        <SearchBar
+          placeholder="Search Categories"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={setSearchTerm}
+          className="w-[50%]"
         />
-        <select
-          className="p-2 border rounded"
-          value={statusFilter}
-          onChange={(e) =>
-            setStatusFilter(e.target.value as "All" | "Active" | "Inactive")
-          }
-        >
-          <option value="All">All</option>
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-        </select>
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          onClick={() => setIsModalOpen(true)}
-        >
-          + Add Category
-        </button>
+        <div className="flex gap-4">
+          <Dropdown
+            options={[
+              { label: "All", value: "all" },
+              { label: "Active", value: "active" },
+              { label: "Inactive", value: "inactive" },
+            ]}
+            value={statusFilter}
+            onChange={setStatusFilter as unknown as (value: string) => void}
+          />
+          <button
+            className="w-fit bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Add Category
+          </button>
+        </div>
       </div>
 
-      {/* Categories Table */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="text-left p-4 border-b">Name</th>
-              <th className="text-left p-4 border-b">Status</th>
-              <th className="text-left p-4 border-b">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredCategories.length > 0 ? (
-              filteredCategories.map((category) => (
-                <tr key={category.id}>
-                  <td className="p-4 border-b">{category.name}</td>
-                  <td className="p-4 border-b">{category.status}</td>
-                  <td className="p-4 border-b">
-                    <button className="text-blue-500 hover:underline">
-                      Edit
-                    </button>
-                    <button className="ml-4 text-red-500 hover:underline">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={3} className="p-4 text-center text-gray-500">
-                  No categories found
-                </td>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHeadCell>Name</TableHeadCell>
+            <TableHeadCell>Status</TableHeadCell>
+            <TableHeadCell>Actions</TableHeadCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {filteredCategories.length > 0 ? (
+            filteredCategories.map((category) => (
+              <tr key={category.id}>
+                <TableDataCell>{category.name}</TableDataCell>
+                <TableDataCell>{category.status}</TableDataCell>
+                <TableDataCell>
+                  <button className="text-blue-500 hover:underline">
+                    Edit
+                  </button>
+                  <button className="ml-4 text-red-500 hover:underline">
+                    Delete
+                  </button>
+                </TableDataCell>
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={3} className="p-4 text-center text-gray-500">
+                No categories found
+              </td>
+            </tr>
+          )}
+        </TableBody>
+      </Table>
 
       {/* Modal for New Category Form */}
       {isModalOpen && (

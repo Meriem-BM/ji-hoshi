@@ -10,6 +10,8 @@ import { CustomersIcon } from "./Customers";
 import { InventoryIcon } from "./Inventory";
 import { OrdersIcon } from "./Orders";
 import { LogoutIcon } from "./Logout";
+import { SearchIcon } from "./Search";
+import { ArrowDownIcon } from "./ArrowDown";
 
 export {
   HeartIcon,
@@ -24,4 +26,6 @@ export {
   InventoryIcon,
   OrdersIcon,
   LogoutIcon,
+  SearchIcon,
+  ArrowDownIcon,
 };
