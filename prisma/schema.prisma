@@ -61,7 +61,7 @@ model Product {
   name        String
   description String
   price       Float
-  categories  Category[]
+  categories  Category[] @relation("ProductCategories")
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   Cart        Cart[]
@@ -70,19 +70,22 @@ model Product {
   ProductReview  ProductReview[]
   ProductVariant ProductVariant[]
   Order          Order[]
+  Stock          Stock[]
 }
 
 model Category {
   id        String    @id @default(cuid())
   name      String
+  status    String    @default("active") // active or inactive
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Products  Product[]
+  products  Product[] @relation("ProductCategories")
 }
 
 model ProductImage {
   id        String   @id @default(cuid())
   productId String
+  variantId String
   url       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -111,13 +114,16 @@ model ProductVariant {
   id        String   @id @default(cuid())
   productId String
   name      String
-  type      String // Size, Color, etc
+  size      String
+  color     String
+  material  String
   price     Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   product Product @relation(fields: [productId], references: [id])
   Order   Order[]
+  Stock   Stock[]
 
   @@index([productId])
 }
@@ -160,6 +166,19 @@ model Payment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([userId])
-  @@index([orderId])
+  @@index([userId, orderId])
+}
+
+model Stock {
+  id        String   @id @default(cuid())
+  productId String
+  variantId String
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product        @relation(fields: [productId], references: [id])
+  variant ProductVariant @relation(fields: [variantId], references: [id])
+
+  @@index([productId, variantId])
 }
