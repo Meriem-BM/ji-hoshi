@@ -1,12 +1,7 @@
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import NewCategoryForm from "~/components/admin-dashboard/categories/NewCategoryModal";
 import {
   Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableDataCell,
-  TableHeadCell,
   SearchBar,
   Dropdown,
 } from "~/components/ui-components";
@@ -72,28 +67,29 @@ const CategoriesView: React.FC = () => {
         </div>
       </div>
 
+      {/* Categories Table */}
       <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHeadCell>Name</TableHeadCell>
-            <TableHeadCell>Status</TableHeadCell>
-            <TableHeadCell>Actions</TableHeadCell>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeadCell>Name</Table.HeadCell>
+            <Table.HeadCell>Status</Table.HeadCell>
+            <Table.HeadCell>Actions</Table.HeadCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {filteredCategories.length > 0 ? (
             filteredCategories.map((category) => (
               <tr key={category.id}>
-                <TableDataCell>{category.name}</TableDataCell>
-                <TableDataCell>{category.status}</TableDataCell>
-                <TableDataCell>
+                <Table.DataCell>{category.name}</Table.DataCell>
+                <Table.DataCell>{category.status}</Table.DataCell>
+                <Table.DataCell>
                   <button className="text-blue-500 hover:underline">
                     Edit
                   </button>
                   <button className="ml-4 text-red-500 hover:underline">
                     Delete
                   </button>
-                </TableDataCell>
+                </Table.DataCell>
               </tr>
             ))
           ) : (
@@ -103,7 +99,7 @@ const CategoriesView: React.FC = () => {
               </td>
             </tr>
           )}
-        </TableBody>
+        </Table.Body>
       </Table>
 
       {/* Modal for New Category Form */}
