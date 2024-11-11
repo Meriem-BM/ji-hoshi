@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Order, OrderStatus } from "../../../types";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Table } from "~/components/ui-components";
 
 type OrdersViewProps = {
   orders: Order[];
@@ -46,7 +47,6 @@ const OrdersView: React.FC<OrdersViewProps> = ({ orders = mockOrders }) => {
 
   const onSubmit: SubmitHandler<Order> = async (data) => {
     if (selectedOrder) {
-      //   await updateOrder(selectedOrder.id, data);
       reset();
       setSelectedOrder(null);
       // Re-fetch or update the orders list here if needed
@@ -66,24 +66,24 @@ const OrdersView: React.FC<OrdersViewProps> = ({ orders = mockOrders }) => {
   return (
     <div className="p-4">
       <h2 className="text-xl font-semibold mb-4">Orders</h2>
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead>
-          <tr>
-            <th className="text-left">Order ID</th>
-            <th className="text-left">Customer</th>
-            <th className="text-left">Total</th>
-            <th className="text-left">Status</th>
-            <th className="text-left">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeadCell>Order ID</Table.HeadCell>
+            <Table.HeadCell>Customer</Table.HeadCell>
+            <Table.HeadCell>Total</Table.HeadCell>
+            <Table.HeadCell>Status</Table.HeadCell>
+            <Table.HeadCell>Actions</Table.HeadCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {orders.map((order) => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>{order.customer}</td>
-              <td>${order.total}</td>
-              <td>{order.status}</td>
-              <td>
+            <Table.Row key={order.id}>
+              <Table.DataCell>{order.id}</Table.DataCell>
+              <Table.DataCell>{order.customer}</Table.DataCell>
+              <Table.DataCell>${order.total}</Table.DataCell>
+              <Table.DataCell>{order.status}</Table.DataCell>
+              <Table.DataCell>
                 <button
                   onClick={() => handleViewClick(order)}
                   className="text-blue-500 mr-4"
@@ -96,11 +96,11 @@ const OrdersView: React.FC<OrdersViewProps> = ({ orders = mockOrders }) => {
                 >
                   Edit
                 </button>
-              </td>
-            </tr>
+              </Table.DataCell>
+            </Table.Row>
           ))}
-        </tbody>
-      </table>
+        </Table.Body>
+      </Table>
 
       {/* Order Details View */}
       {viewingOrder && (

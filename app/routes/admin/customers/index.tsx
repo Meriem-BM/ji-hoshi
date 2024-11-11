@@ -1,6 +1,6 @@
-// CustomersView.tsx
 import { useState } from "react";
 import { Customer } from "~/types";
+import { Table } from "~/components/ui-components";
 
 // mockData.ts
 export const mockCustomers: Customer[] = [
@@ -36,35 +36,35 @@ const CustomersView: React.FC = () => {
   return (
     <div className="p-4">
       <h2 className="text-xl font-semibold mb-4">Customers</h2>
-      <table className="min-w-full bg-white border border-gray-300">
-        <thead>
-          <tr>
-            <th className="px-4 py-2 border-b">Name</th>
-            <th className="px-4 py-2 border-b">Email</th>
-            <th className="px-4 py-2 border-b">Verified</th>
-            <th className="px-4 py-2 border-b">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeadCell>Name</Table.HeadCell>
+            <Table.HeadCell>Email</Table.HeadCell>
+            <Table.HeadCell>Verified</Table.HeadCell>
+            <Table.HeadCell>Actions</Table.HeadCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {customers.map((customer) => (
-            <tr key={customer.id} className="hover:bg-gray-100">
-              <td className="px-4 py-2 border-b">{customer.name}</td>
-              <td className="px-4 py-2 border-b">{customer.email}</td>
-              <td className="px-4 py-2 border-b">
+            <Table.Row key={customer.id}>
+              <Table.DataCell>{customer.name}</Table.DataCell>
+              <Table.DataCell>{customer.email}</Table.DataCell>
+              <Table.DataCell>
                 {customer.verified ? "Yes" : "No"}
-              </td>
-              <td className="px-4 py-2 border-b">
+              </Table.DataCell>
+              <Table.DataCell>
                 <button
                   className="text-blue-500 hover:text-blue-700"
                   onClick={() => toggleVerification(customer.id)}
                 >
                   {customer.verified ? "Unverify" : "Verify"}
                 </button>
-              </td>
-            </tr>
+              </Table.DataCell>
+            </Table.Row>
           ))}
-        </tbody>
-      </table>
+        </Table.Body>
+      </Table>
     </div>
   );
 };

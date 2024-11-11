@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Table } from "~/components/ui-components";
 
 type Variant = {
   id: number;
@@ -93,31 +94,31 @@ const InventoryView: React.FC = () => {
   return (
     <div className="p-6 space-y-4">
       <h2 className="text-2xl font-bold mb-4">Inventory Management</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>SKU</th>
-            <th>Category</th>
-            <th>Variant</th>
-            <th>Material</th>
-            <th>Size</th>
-            <th>Color</th>
-            <th>Stock</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeadCell>Product</Table.HeadCell>
+            <Table.HeadCell>SKU</Table.HeadCell>
+            <Table.HeadCell>Category</Table.HeadCell>
+            <Table.HeadCell>Variant</Table.HeadCell>
+            <Table.HeadCell>Material</Table.HeadCell>
+            <Table.HeadCell>Size</Table.HeadCell>
+            <Table.HeadCell>Color</Table.HeadCell>
+            <Table.HeadCell>Stock</Table.HeadCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {products.map((product) =>
             product.variants.map((variant) => (
-              <tr key={variant.id}>
-                <td>{product.name}</td>
-                <td>{product.sku}</td>
-                <td>{product.category}</td>
-                <td>{variant.name}</td>
-                <td>{variant.material}</td>
-                <td>{variant.size}</td>
-                <td>{variant.color}</td>
-                <td>
+              <Table.Row key={variant.id}>
+                <Table.DataCell>{product.name}</Table.DataCell>
+                <Table.DataCell>{product.sku}</Table.DataCell>
+                <Table.DataCell>{product.category}</Table.DataCell>
+                <Table.DataCell>{variant.name}</Table.DataCell>
+                <Table.DataCell>{variant.material}</Table.DataCell>
+                <Table.DataCell>{variant.size}</Table.DataCell>
+                <Table.DataCell>{variant.color}</Table.DataCell>
+                <Table.DataCell>
                   <input
                     type="number"
                     value={variant.stock}
@@ -128,15 +129,18 @@ const InventoryView: React.FC = () => {
                         parseInt(e.target.value) || 0
                       )
                     }
-                    className="w-20"
+                    className="w-20 border border-gray-300 p-1"
                   />
-                </td>
-              </tr>
+                </Table.DataCell>
+              </Table.Row>
             ))
           )}
-        </tbody>
-      </table>
-      <button className="mt-4" onClick={() => alert("Inventory updated!")}>
+        </Table.Body>
+      </Table>
+      <button
+        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        onClick={() => alert("Inventory updated!")}
+      >
         Save Changes
       </button>
     </div>
