@@ -17,18 +17,8 @@ export interface IFeedback {
   feedback: string;
 }
 
-// Define the Category type
-export interface Category {
-  id: number;
-  name: string;
-  status: "active" | "inactive";
-}
-
 // Define the props for NewCategoryForm
-export interface NewCategoryFormProps {
-  onSubmit: (data: Omit<Category, "id">) => void;
-  onClose: () => void;
-}
+
 
 export enum OrderStatus {
   Pending = "Pending",
@@ -56,4 +46,3 @@ export interface Customer {
   email: string;
   verified: boolean;
 }
-

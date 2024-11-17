@@ -1,39 +1,46 @@
-import { useState } from "react";
-import NewCategoryForm from "~/components/admin-dashboard/categories/NewCategoryModal";
-import {
-  Table,
-  SearchBar,
-  Dropdown,
-} from "~/components/ui-components";
-import { Category } from "~/types";
+import { useState, useMemo } from "react";
+import useCategory from "~/hooks/useCategory";
+import CategoryForm from "~/components/admin-dashboard/categories/CategoryModal";
+import { Table, SearchBar, Dropdown } from "~/components/ui-components";
+import { INewCategoryFormInputs } from "~/types/categories";
+import { ECategoriesStatus } from "~/types/categories";
+import { ConfirmDeleteModal } from "~/components/admin-dashboard/categories/ConfirmDeleteModal";
+
+type ModalState =
+  | { type: "add"; selectedCategory: null }
+  | { type: "edit"; selectedCategory: { id: string; name: string } }
+  | { type: "delete"; selectedCategory: { id: string; name: string } };
 
 const CategoriesView: React.FC = () => {
-  const [categories, setCategories] = useState<Category[]>([
-    { id: 1, name: "Electronics", status: "active" },
-    { id: 2, name: "Books", status: "inactive" },
-  ]);
+  const { categories, addCategory, updateCategory, deleteCategory, error } =
+    useCategory();
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalState, setModalState] = useState<ModalState | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [statusFilter, setStatusFilter] = useState<
-    "all" | "active" | "inactive"
-  >("all");
+  const [statusFilter, setStatusFilter] = useState<ECategoriesStatus | "all">(
+    "all"
+  );
 
-  const filteredCategories = categories.filter((category) => {
-    const matchesSearch = category.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const matchesStatus =
-      statusFilter === "all" || category.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
+  // Filter categories based on search term and status
+  const filteredCategories = useMemo(() => {
+    return categories.filter((category) => {
+      const matchesSearch = category.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesStatus =
+        statusFilter === "all" || category.status === statusFilter;
+      return matchesSearch && matchesStatus;
+    });
+  }, [categories, searchTerm, statusFilter]);
 
-  // Function to handle adding a new category
-  const handleAddCategory = (newCategory: Omit<Category, "id">) => {
-    setCategories((prevCategories) => [
-      ...prevCategories,
-      { id: categories.length + 1, ...newCategory },
-    ]);
+  // Handle add and edit category submissions
+  const handleCategorySubmit = (data: INewCategoryFormInputs) => {
+    if (modalState?.type === "add") {
+      addCategory(data);
+    } else if (modalState?.type === "edit" && modalState.selectedCategory) {
+      updateCategory({ id: modalState.selectedCategory.id, ...data });
+    }
+    setModalState(null);
   };
 
   return (
@@ -56,11 +63,15 @@ const CategoriesView: React.FC = () => {
               { label: "Inactive", value: "inactive" },
             ]}
             value={statusFilter}
-            onChange={setStatusFilter as unknown as (value: string) => void}
+            onChange={(value) =>
+              setStatusFilter(value as ECategoriesStatus | "all")
+            }
           />
           <button
-            className="w-fit bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            onClick={() => setIsModalOpen(true)}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            onClick={() =>
+              setModalState({ type: "add", selectedCategory: null })
+            }
           >
             Add Category
           </button>
@@ -81,12 +92,36 @@ const CategoriesView: React.FC = () => {
             filteredCategories.map((category) => (
               <tr key={category.id}>
                 <Table.DataCell>{category.name}</Table.DataCell>
-                <Table.DataCell>{category.status}</Table.DataCell>
+                <Table.DataCell className="capitalize">
+                  {category.status}
+                </Table.DataCell>
                 <Table.DataCell>
-                  <button className="text-blue-500 hover:underline">
+                  <button
+                    className="text-blue-500 hover:underline"
+                    onClick={() =>
+                      setModalState({
+                        type: "edit",
+                        selectedCategory: {
+                          id: category.id,
+                          name: category.name,
+                        },
+                      })
+                    }
+                  >
                     Edit
                   </button>
-                  <button className="ml-4 text-red-500 hover:underline">
+                  <button
+                    className="ml-4 text-red-500 hover:underline"
+                    onClick={() =>
+                      setModalState({
+                        type: "delete",
+                        selectedCategory: {
+                          id: category.id,
+                          name: category.name,
+                        },
+                      })
+                    }
+                  >
                     Delete
                   </button>
                 </Table.DataCell>
@@ -102,11 +137,31 @@ const CategoriesView: React.FC = () => {
         </Table.Body>
       </Table>
 
-      {/* Modal for New Category Form */}
-      {isModalOpen && (
-        <NewCategoryForm
-          onSubmit={handleAddCategory}
-          onClose={() => setIsModalOpen(false)}
+      {/* Modal for Add/Edit Category */}
+      {modalState && modalState.type !== "delete" && (
+        <CategoryForm
+          type={modalState.type}
+          data={
+            modalState.selectedCategory
+              ? categories.find((c) => c.id === modalState.selectedCategory.id)
+              : undefined
+          }
+          onSubmit={handleCategorySubmit}
+          onClose={() => setModalState(null)}
+        />
+      )}
+
+      {/* Confirm Delete Modal */}
+      {modalState?.type === "delete" && (
+        <ConfirmDeleteModal
+          show={!!modalState}
+          handleClose={() => setModalState(null)}
+          handleDelete={() => {
+            if (modalState.selectedCategory) {
+              deleteCategory(modalState.selectedCategory.id);
+              setModalState(null);
+            }
+          }}
         />
       )}
     </div>
