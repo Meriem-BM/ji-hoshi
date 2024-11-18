@@ -1,4 +1,4 @@
-export type IProduct = {
+export type TProduct = {
   id: string;
   name: string;
   description: string;
@@ -15,7 +15,7 @@ export interface INewProductFormInputs {
 
 export interface IProductFormProps {
   type: "add" | "edit";
-  data?: IProduct;
+  data?: TProduct;
   onSubmit: (data: INewProductFormInputs) => void;
   onClose: () => void;
 }

@@ -3,7 +3,7 @@ export interface IIconComponentProps {
   color?: string;
 }
 
-export interface IProduct {
+export interface TProduct {
   id: number;
   img: string;
   title: string;

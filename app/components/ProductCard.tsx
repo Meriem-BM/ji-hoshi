@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Link } from "@remix-run/react";
-import { IProduct } from "~/types";
+import { TProduct } from "~/types";
 import { StarIcon } from "./icons";
 import { baseColors } from "~/lib/constants";
 
-const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
+const ProductCard: FC<{ product: TProduct }> = ({ product }) => {
   return (
     <Link to={`/product/${product.id}`} className="max-w-[384px] mx-auto">
       <section className="p-5 py-4 text-start transform duration-500 hover:-translate-y-2 cursor-pointer rounded-lg">

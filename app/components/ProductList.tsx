@@ -1,9 +1,9 @@
 import ProductCard from "./ProductCard";
-import { IProduct } from "~/types";
+import { TProduct } from "~/types";
 import { RightArrowIcon } from "./icons/RightArrow";
 
 export default function ProductList() {
-  const products: IProduct[] = [
+  const products: TProduct[] = [
     {
       id: 1,
       img: "matcha.jpg",

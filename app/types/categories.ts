@@ -1,4 +1,4 @@
-export type ICategory = {
+export type TCategory = {
   id: string;
   name: string;
   status: ECategoriesStatus;
@@ -16,7 +16,7 @@ export interface INewCategoryFormInputs {
 
 export interface ICategoryFormProps {
   type: "add" | "edit";
-  data?: ICategory;
+  data?: TCategory;
   onSubmit: (data: INewCategoryFormInputs) => void;
   onClose: () => void;
 }
