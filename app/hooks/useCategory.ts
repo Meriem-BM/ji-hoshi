@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { ICategory } from "~/types/categories";
-import { TCreateCategoryInput, TUpdateCategoryInput } from "~/schemas/category.schema";
+import type { TCreateCategoryInput, TUpdateCategoryInput } from "~/schemas/category.schema";
 
 export default function useCategory() {
   const [categories, setCategories] = useState<ICategory[]>([]);
